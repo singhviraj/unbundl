@@ -6,7 +6,8 @@
  */
 $ordererr = $modelerr = $incorrect1= $incorrect2= "";
 $z =0;
-$x=0;$y=0;
+$x=$y="";
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
@@ -18,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $x = test_input($_POST["order"]);
         }
         if (empty($_POST["model"])) {
-            $modelerr = "model number is required";
+            $modelerr = "model name is required";
           }
 else{
     $y = test_input($_POST["model"]);
@@ -57,19 +58,19 @@ else{
 
     //checking if the password matches with the given values
 
-  if($y != 'LTW' || $y !='Aero' ){
-    $incorrect1 ="model is wrong";
-  }
+  
   // if the patter is invalid the following message is displayed
   if($z !=13  && $y != 'LTW' || $y !='Aero'){
     $incorrect2 = "Kindly order on xyz@gmail.com for warranty registration.";
 }
    
-    if($z ==13 && $y == 'LTW' || $y =='Aero'){
+    if( $y == 'LTW' || $y =='Aero'){
 
       //redirecting to createaccount.php
-
-        header("Location: createaccount.php/");
+if($z ==13){
+  header("Location: createaccount.php/");
+}
+        
     }
    
 }
@@ -89,14 +90,14 @@ function test_input($data) {
         
     </head>
     <body>
-       <h2>PHP Form Validation To start emails</h2>
+       <h2>Warranty Registration</h2>
        
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   
-  Installation Service Order No: <input type="text" name="order">
+  Installation Service Order No: <input type="text" name="order" value="<?php echo $x;?>">
   <br><br><?php echo $ordererr;?><br><br>
   <br><br><?php echo $incorrect1;?><br><br> 
-  Model Name: <input type="text" name="model">
+  Model Name: <input type="text" name="model" value="<?php echo $y;?>">
   <br><br><?php echo $modelerr;?><br><br>
   <br><br><?php echo $incorrect2;?><br><br>
      <input type="submit" name="submit" value="Submit"> 

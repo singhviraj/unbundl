@@ -11,8 +11,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
 
        ini_set('max_execution_time', 500);
       
-       $emailerror="";
-       $name = $email =$number=$address=$city=$state=$pincode=$snumber=$pdate="";
+       
+       $emailerror= $name = $email =$number=$address=$city=$state=$pincode=$snumber=$pdate="";
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
       
         {
@@ -136,10 +136,8 @@ warranty terms & conditions.";
                             Please go back and try again!");
             }
            
-           
             
-           
-        }
+                  }
 }
 // removing necessary characters from the string
 function test_input($data) {
@@ -159,7 +157,7 @@ function test_input($data) {
   E-mail: <input type="text" name="email" value="<?php echo $email;?>" required>
   
   
-  <br><br><h5><?php echo $emailerror;?></h5><br><br>
+  <br><h5><?php echo $emailerror;?></h5><br>
   Mobile Number: <input type="number" name="number" value="<?php echo $number;?>" required>
   <br><br>
 

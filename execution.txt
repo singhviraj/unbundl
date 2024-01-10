@@ -29,7 +29,7 @@ details table of unbundl database.
  we will send an email to the user by using different header fields
 of MIME protocol. 
 
-10, Once the emessage is send we will display the message the following message
+10, Once the emessage is send we will display the message the following message.
 
 "Thank you for
 sharing the documents with us. Our team will verify the details and get back to you within 7
