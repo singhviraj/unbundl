@@ -6,14 +6,13 @@
  */
 $ordererr = $modelerr = $incorrect1= $incorrect2= "";
 $z =0;
+$x=0;$y=0;
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-    //$x = test_input($_POST["email"]);
-    //$y = test_input($_POST["password"]);
-        
+           
         if (empty($_POST["order"])) {
-          $ordererr = "order id is required";
+          $ordererr = "order id is required";  //checking if details are empty or not
         }
         else{
             $x = test_input($_POST["order"]);
@@ -28,10 +27,14 @@ else{
     $len =strlen($x);
     $pattern1 = "/[a-z]/i";
     $pattern2 = "/[0-9]/i";
-    
+
+    //looping through the string to check if the first 3 characters are alphabers and the rest are number
+    //if the total length of the string is 13
+
+
     if($len == 13)
     {
-    for($i =0;$i<$len;$i++)
+    for($i =0;$i<$len;$i++)        
     {
         
         $a =substr($x, $i,1 );
@@ -50,26 +53,26 @@ else{
 
 
     }
-    if($len != 13){
-        echo "error";
-    }
+   
+
+    //checking if the password matches with the given values
+
   if($y != 'LTW' || $y !='Aero' ){
     $incorrect1 ="model is wrong";
   }
-  if($z !=13){
+  // if the patter is invalid the following message is displayed
+  if($z !=13  && $y != 'LTW' || $y !='Aero'){
     $incorrect2 = "Kindly order on xyz@gmail.com for warranty registration.";
 }
    
     if($z ==13 && $y == 'LTW' || $y =='Aero'){
-      
+
+      //redirecting to createaccount.php
+
         header("Location: createaccount.php/");
     }
    
 }
-  
- //if(empty($accountpassword)== TRUE || empty($email)== TRUE){
-   // echo'you can not leave it blank';
-//}
 
 function test_input($data) {
   $data = trim($data);
@@ -92,7 +95,7 @@ function test_input($data) {
   
   Installation Service Order No: <input type="text" name="order">
   <br><br><?php echo $ordererr;?><br><br>
-  <br><br><?php echo $incorrect1;?><br><br>
+  <br><br><?php echo $incorrect1;?><br><br> 
   Model Name: <input type="text" name="model">
   <br><br><?php echo $modelerr;?><br><br>
   <br><br><?php echo $incorrect2;?><br><br>

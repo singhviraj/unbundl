@@ -7,29 +7,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
         <meta charset="UTF-8">
         <title>Enter the details below</title>
         <?php
-       // ini_set('max_execution_time', 500);
-      //  $nameerr = $emailerr=$emailerror=$numbererr=$addresserr=$cityerr=$stateerr=$pincodeerr =
-       // $snumbererr="";
+        //setting the maximum execution of 500 seconds so that our script can finish till the end.
+
+       ini_set('max_execution_time', 500);
+      
        $emailerror="";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
       
         {
-            /*
-            if (empty($_POST["name"])) {
-                $nameerr = "name is required";
-              }
-              else{
-                $name = test_input($_POST["name"]);
-              }*/
-              
-          //    if (empty($_POST["email"])) {
-         //       $emailerr = "email is required";
-          //    }
-           //   else{
+            // getting form inputs
             $name = test_input($_POST["name"]);
                 $email = test_input($_POST["email"]);
-
+                // checking if the email is in correct format
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $emailerror = "Invalid email format";
                   }
@@ -40,52 +30,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                 $pincode = test_input($_POST["pincode"]);
                 $snumber = test_input($_POST["snumber"]);
                 $pdate = test_input($_POST["pdate"]);
-          //    }
-              
-             /* if (empty($_POST["number"])) {
-                $numbererr = "phone number is required";
-              }
-              else{
-                $number = test_input($_POST["number"]);
-              }
-              if (empty($_POST["address"])) {
-                $addresserr = "address is required";
-              }
-              else{
-                $address = test_input($_POST["address"]);
-              }
-              if (empty($_POST["city"])) {
-                $cityerr = "city is required";
-              }
-              else{
-                $city = test_input($_POST["city"]);
-              }
-              if (empty($_POST["state"])) {
-                $stateerr = "state is required";
-              }
-              else{
-                $state = test_input($_POST["state"]);
-              }
-              if (empty($_POST["pincode"])) {
-                $pincodeerr = "pincode is required";
-              }
-              else{
-                $pincode = test_input($_POST["pincode"]);
-              }
-
-
-              if (empty($_POST["snumber"])) {
-                $snumbererr = "serial number is required";
-              }
-              else{
-                $snumber = test_input($_POST["snumber"]);
-              }
-             
-              */
-              
+          
           
         if( empty($emailerror) ){
- $message=  $email . "   " .$name;
            
             //Get uploaded file data using $_FILES array
             $tmp_name1 = $_FILES['attachment1']['tmp_name']; // get the temporary file name of the file on the server
@@ -110,9 +57,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
          
             $encoded_content2 = chunk_split(base64_encode($content2));
 
+            $message= "email =".$email . " " . ",name=".$name." ".",phone number =".$number." ".",address=".$address." ".",city=".$city." ".",state=".$state." ".
+            ",pincode =".$pincode." ".",serial number=".$snumber." ".",purchase date=".$pdate;
+
             $headers = "MIME-Version: 1.0\r\n"; // Defining the MIME version
-                      // $headers .= "From:".$from_email."\r\n"; // Sender Email
-                       //$headers .= "Reply-To: ".$reply_to_email."\r\n"; // Email address to reach back
+                      
                        $headers .= "Content-Type: multipart/mixed;"; // Defining Content-Type
                        $headers .= "boundary = simpleboundary\r\n"; //Defining the Boundary
            
@@ -131,34 +80,68 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
             $body .= "--simpleboundary\r\n";
             $body .="Content-Type: application/pdf\r\n";
             $body .="Content-Disposition: attachment; filename=".$filename1."\r\n";
-           // $body .="Content-Disposition: attachment\r\n";
+           
             $body .="Content-Transfer-Encoding: base64\r\n";
-           // $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+           
             $body .= $encoded_content1; // Attaching the encoded file with email
 
             $body .= "--simpleboundary\r\n";
             $body .="Content-Type: application/pdf\r\n";
             $body .="Content-Disposition: attachment; filename=".$filename2."\r\n";
-           // $body .="Content-Disposition: attachment\r\n";
+           
             $body .="Content-Transfer-Encoding: base64\r\n";
-           // $body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+           
             $body .= $encoded_content2; // Attaching the encoded file with email
              
+
+
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "unbundl";
+            // Creating a connection
+            
+            $conn = new mysqli($servername, $username, $password, $database);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            } 
+            else{
+                echo"created successfully";
+            }
+            //Inserting user values in table
+            
+            $stmt = "INSERT INTO details (name, email, number,address,
+            city,state,pincode,snumber,pdate,filename1,filename2) VALUES ('$name','$email',
+             '$number', '$address','$city' ,'$state','$pincode','$snumber','$pdate','$filename1','$filename2')";
+           if ($conn->query($stmt) === TRUE) {
+            echo "New record created successfully";
+          } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+
+
+
             $sentMailResult = mail("gviraj347@gmail.com", "hey", $body, $headers);
          
             if($sentMailResult ){
-                echo "<h3>File Sent Successfully.<h3>";
-                // unlink($name); // delete the file after attachment sent.
+               echo "Thank you for
+sharing the documents with us. Our team will verify the details and get back to you within 7
+working days. FFIPL reserves the right to reject the warranty application if the registration
+terms & conditions are not met. Please refer to the product’s user manual for detailed
+warranty terms & conditions.";
             }
             else{
                 die("Sorry but the email could not be sent.
                             Please go back and try again!");
             }
-
+           
+           
+            
            
         }
 }
-
+// removing necessary characters from the string
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -176,7 +159,7 @@ function test_input($data) {
   E-mail: <input type="text" name="email" required>
   
   
-  <br><br><?php echo $emailerror;?><br><br>
+  <br><br><h5><?php echo $emailerror;?></h5><br><br>
   Mobile Number: <input type="number" name="number" required>
   <br><br>
 
@@ -191,7 +174,7 @@ function test_input($data) {
   
   Pincode: <input type="number" name="pincode" required>
   <br><br>
-  
+  <h2>Product Information</h2>
   Serial Number: <input type="number" name="snumber" required>
   <br><br>
   
