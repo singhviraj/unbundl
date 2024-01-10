@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
        ini_set('max_execution_time', 500);
       
        $emailerror="";
-
+       $name = $email =$number=$address=$city=$state=$pincode=$snumber=$pdate="";
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
       
         {
@@ -153,37 +153,37 @@ function test_input($data) {
     <body>
        <h2>Customer Information</h2>
 <form enctype="multipart/form-data" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="name" required>
+  Name: <input type="text" name="name" value="<?php echo $name;?>" required>
   <br><br>
  
-  E-mail: <input type="text" name="email" required>
+  E-mail: <input type="text" name="email" value="<?php echo $email;?>" required>
   
   
   <br><br><h5><?php echo $emailerror;?></h5><br><br>
-  Mobile Number: <input type="number" name="number" required>
+  Mobile Number: <input type="number" name="number" value="<?php echo $number;?>" required>
   <br><br>
 
-  Address: <input type="text" name="address" required>
+  Address: <input type="text" name="address" value="<?php echo $address;?>" required>
   <br><br>
  
-  City: <input type="text" name="city" required>
+  City: <input type="text" name="city" value="<?php echo $city;?>" required>
   <br><br>
   
-  State: <input type="text" name="state" required>
+  State: <input type="text" name="state" value="<?php echo $state;?>" required>
   <br><br>
   
-  Pincode: <input type="number" name="pincode" required>
+  Pincode: <input type="number" name="pincode" value="<?php echo $pincode;?>" required>
   <br><br>
   <h2>Product Information</h2>
-  Serial Number: <input type="number" name="snumber" required>
+  Serial Number: <input type="number" name="snumber" value="<?php echo $snumber;?>" required>
   <br><br>
   
-  Purchase Date: <input type="date" name="pdate" required>
+  Purchase Date: <input type="date" name="pdate"  value="<?php echo $pdate;?>" required>
   <br><br>
   Scan of Invoice:  <input  type="file" name="attachment1"  required/>
   <br><br>
  
-  Scan of Life Time Warranty Registration:  <input  type="file" name="attachment2" required/>
+  Scan of Life Time Warranty Registration:  <input  type="file" name="attachment2"  required/>
   <br><br>
   
    <input type="submit" name="button" value="Submit"> 

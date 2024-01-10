@@ -1,0 +1,38 @@
+Execution of project in describes below .
+
+1, Customer have to fill the signup form where installation service order number and model 
+name needs to be mentioned.
+
+2, We will send the details to the same page using post method and check if the provided
+details are emty or not.
+
+3, If the provided details are not empty then we will remove the whitespace ,backshash and 
+encode the given data to avoid server side scripting.
+
+4, Once we filter the data using above step we will check if the order number has 
+alphabets in the first 3 positions and integers in the last 10 using preg_match .
+We also check if the password matches the provided values or not.
+
+5, If all the above conditions are satisfied then the page is redirected to the
+createaccount.php where customer can enter the customer and product details.
+
+6, All the input fields mentioned in the createaccount.php are mandatory.
+
+7, We will store the attributes of Scan of Invoice pdf and Scan of Life TIme Warranty
+Registration Form pdf using $_FILES global array so that we can use it store it in 
+database and send email.
+
+8, Once stored we will store the customer and product details in the
+details table of unbundl database.
+
+9, After storing the data in the database
+ we will send an email to the user by using different header fields
+of MIME protocol. 
+
+10, Once the emessage is send we will display the message the following message
+
+"Thank you for
+sharing the documents with us. Our team will verify the details and get back to you within 7
+working days. FFIPL reserves the right to reject the warranty application if the registration
+terms & conditions are not met. Please refer to the product’s user manual for detailed
+warranty terms & conditions."
