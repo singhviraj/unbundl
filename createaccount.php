@@ -122,7 +122,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
 
 
 
-            $sentMailResult = mail("gviraj347@gmail.com", "hey", $body, $headers);
+            $sentMailResult = mail("hr@unbundl.com", "hey", $body, $headers);
          
             if($sentMailResult ){
                echo "Thank you for
